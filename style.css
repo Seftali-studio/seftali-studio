@@ -1,4 +1,4 @@
-/* Genel Temizlik ve Fontlar */
+/* --- TEMEL AYARLAR VE FONTAR --- */
 * {
     margin: 0;
     padding: 0;
@@ -12,17 +12,17 @@ body, html {
     font-family: 'Rajdhani', sans-serif;
     color: white;
     overflow-x: hidden;
-    scroll-behavior: smooth; /* Sayfa içi geçişleri yumuşatır */
+    scroll-behavior: smooth;
 }
 
-/* Navigasyon (Üst Menü) */
+/* --- NAVİGASYON (ÜST MENÜ) --- */
 header {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 25px 0;
+    padding: 20px 0;
     z-index: 1000;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent);
 }
 
 nav {
@@ -34,7 +34,7 @@ nav {
 .header-logo {
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
-    color: #ffb38a; /* Şeftali Tonu */
+    color: #ffb38a;
     letter-spacing: 3px;
     font-size: 1.2rem;
 }
@@ -44,26 +44,20 @@ nav ul {
     list-style: none;
 }
 
-nav ul li {
-    margin: 0 20px;
-}
+nav ul li { margin: 0 20px; }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    letter-spacing: 1px;
-    transition: 0.3s ease;
+    transition: 0.3s;
 }
 
-nav ul li a:hover {
-    color: #ffb38a;
-    text-shadow: 0 0 10px rgba(255,179,138,0.5);
-}
+nav ul li a:hover { color: #ffb38a; }
 
-/* Hero Section (Giriş) */
+/* --- HERO SECTION (GİRİŞ ALANI) --- */
 #home {
     height: 100vh;
     width: 100%;
@@ -74,84 +68,197 @@ nav ul li a:hover {
     overflow: hidden;
 }
 
-/* Video: Riot Games Tarzı Tam Ekran */
 #bg-video {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
+    top: 50%; left: 50%;
+    min-width: 100%; min-height: 100%;
     transform: translate(-50%, -50%);
     z-index: -1;
     object-fit: cover;
-    filter: brightness(0.6); /* Videoyu biraz karartarak yazıları öne çıkarır */
+    filter: brightness(0.5);
 }
 
-/* Merkez İçerik */
 .hero-content {
     text-align: center;
     z-index: 10;
-    padding: 0 20px;
 }
 
 .main-logo {
-    width: 260px;
+    width: 250px;
     height: auto;
     margin-bottom: 20px;
-    filter: drop-shadow(0 0 25px rgba(255,179,138,0.4));
-    animation: float 4s ease-in-out infinite; /* Hafif yüzme efekti */
+    filter: drop-shadow(0 0 20px rgba(255,179,138,0.3));
+    animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
-    0% { transform: translateY(0px); }
+    0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
 }
 
 h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 2.2rem;
+    letter-spacing: 4px;
     margin-bottom: 5px;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
 }
 
-p {
-    font-size: 1.3rem;
-    color: #ffb38a;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
-}
-
-/* Footer (Telif Notu) */
-footer {
-    background-color: #080808;
-    padding: 50px 20px;
+/* --- BÖLÜM BAŞLIKLARI --- */
+.section-title {
     text-align: center;
-    border-top: 1px solid #1a1a1a;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
 }
 
-.footer-content p {
-    font-size: 0.85rem;
-    color: #555;
-    margin: 8px 0;
+/* --- HABERLER BÖLÜMÜ --- */
+#news {
+    padding: 80px 10%;
+    background-color: #050505;
 }
 
-.credits {
-    font-style: italic;
-    opacity: 0.8;
+.news-container { max-width: 800px; margin: 0 auto; }
+
+.news-item {
+    background: #111;
+    padding: 25px;
+    border-left: 4px solid #ffb38a;
+    transition: 0.3s;
 }
 
-.credits a {
+.news-date { color: #ffb38a; font-weight: bold; font-size: 0.9rem; }
+
+.news-item h3 { margin: 10px 0; font-family: 'Orbitron'; }
+
+/* --- OYUNLAR BÖLÜMÜ --- */
+#games {
+    padding: 80px 10%;
+    background-color: #000;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+.game-card {
+    background: #0f0f0f;
+    border: 1px solid #222;
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.game-card:hover {
+    transform: scale(1.03);
+    border-color: #ffb38a;
+    box-shadow: 0 0 20px rgba(255,179,138,0.1);
+}
+
+.game-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.game-link-text {
+    display: inline-block;
+    margin-top: 15px;
     color: #ffb38a;
-    text-decoration: none;
     font-weight: bold;
+    font-size: 0.9rem;
 }
 
-.credits a:hover {
-    text-decoration: underline;
+/* --- HAKKIMIZDA BÖLÜMÜ --- */
+#about {
+    padding: 80px 10%;
+    background-color: #050505;
+    text-align: center;
 }
+
+.about-container { max-width: 750px; margin: 0 auto; }
+
+.about-container p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.about-container strong { color: #ffb38a; }
+
+/* --- MODAL (AÇILIR MENÜ) --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.92);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background-color: #111;
+    margin: 5% auto;
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #333;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,1);
+}
+
+.close-btn {
+    position: absolute; right: 25px; top: 15px;
+    color: #888; font-size: 35px; cursor: pointer;
+}
+
+.close-btn:hover { color: #fff; }
+
+.modal-img { width: 100%; border-radius: 12px; margin-bottom: 20px; }
+
+.modal-desc {
+    color: #aaa;
+    line-height: 1.6;
+    margin: 20px 0;
+}
+
+.play-btn {
+    display: inline-block;
+    background-color: #ffb38a;
+    color: #000;
+    padding: 15px 40px;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 50px;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.play-btn:hover {
+    transform: scale(1.05);
+    background-color: #fff;
+}
+
+/* --- FOOTER --- */
+footer {
+    padding: 40px;
+    background: #000;
+    text-align: center;
+    border-top: 1px solid #111;
+}
+
+.footer-content p { color: #444; font-size: 0.8rem; letter-spacing: 1px; }
+
+.credits a { color: #ffb38a; text-decoration: none; opacity: 0.7; }
