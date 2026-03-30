@@ -1,59 +1,16 @@
-/* Önceki body ayarlarını koruyabilirsin */
-body {
+/* Genel Ayarlar */
+body, html {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
     background-color: #000;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color: white;
     overflow-x: hidden;
 }
 
-/* Arka Plan Videosu Ayarı */
-#bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1; /* İçeriğin arkasında kalması için */
-}
-
-/* Hero Section (Giriş) */
-#home {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.hero-content {
-    text-align: center;
-    z-index: 1;
-}
-
-/* Ana Logo Ayarı */
-.main-logo {
-    width: 250px; /* Logonun boyutunu buradan ayarlayabilirsin */
-    height: auto;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 15px rgba(0,0,0,0.5)); /* Logoyu öne çıkarmak için hafif gölge */
-}
-
-h1 {
-    font-size: 2.5rem;
-    margin: 10px 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-p {
-    font-size: 1.2rem;
-    color: #ffb38a; /* Şeftali tonu */
-}
-
-/* Header (Üst Menü) */
+/* Üst Menü (Navigasyon) */
 header {
     position: fixed;
     top: 0;
@@ -69,7 +26,87 @@ nav {
     align-items: center;
 }
 
-.header-logo { font-weight: bold; color: #ffb38a; }
-nav ul { display: flex; list-style: none; }
-nav ul li { margin: 0 15px; }
-nav ul li a { color: white; text-decoration: none; text-transform: uppercase; font-size: 0.9rem; }
+.header-logo {
+    font-weight: bold;
+    color: #ffb38a; /* Şeftali Tonu */
+    letter-spacing: 2px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffb38a;
+}
+
+/* Hero Section (Giriş Alanı) */
+#home {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Video Ayarı */
+#bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    object-fit: cover;
+}
+
+/* Merkezdeki İçerik */
+.hero-content {
+    text-align: center;
+    z-index: 10;
+    padding: 0 20px;
+}
+
+.main-logo {
+    width: 280px; /* Logonun ideal boyutu */
+    height: auto;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 0 15px rgba(0,0,0,0.7));
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin: 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 800;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #ffb38a; /* Şeftali Tonu */
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
