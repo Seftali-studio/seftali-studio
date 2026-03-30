@@ -14,6 +14,7 @@
             <div class="header-logo">ŞEFTALİ STUDIO</div>
             <ul>
                 <li><a href="#home">Ana Sayfa</a></li>
+                <li><a href="#news">Haberler</a></li>
                 <li><a href="#games">Oyunlarımız</a></li>
                 <li><a href="#about">Hakkımızda</a></li>
             </ul>
@@ -32,13 +33,56 @@
         </div>
     </section>
 
-    <main>
-        <section id="games" style="height: 40vh; display: flex; align-items: center; justify-content: center; background-color: #000;">
-            <h2 style="color: #333; font-family: 'Rajdhani'; text-transform: uppercase; letter-spacing: 3px;">
-                Yeni Projeler Yolda...
-            </h2>
-        </section>
-    </main>
+    <section id="news">
+        <h2 class="section-title">Haberler</h2>
+        <div class="news-container">
+            <div class="news-item">
+                <span class="news-date">30 Mart 2026</span>
+                <h3>Şeftali Studio Web Sitesi Yenilendi!</h3>
+                <p>Yeni iskeletimiz ve modern tasarımımızla projelerimizi daha yakından takip edebilirsiniz.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="games">
+        <h2 class="section-title">Oyunlarımız</h2>
+        <div class="game-grid">
+            <div class="game-card" onclick="openGameModal()">
+                <img src="image_a486ba.png" alt="Top Oyunu" class="game-card-img">
+                <h3>Top Oyunu</h3>
+                <p>Engelleri aş ve bitişe ulaş!</p>
+                <span class="game-link-text">Detayları Gör</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-container">
+            <h2>Hakkımızda</h2>
+            <p>
+                Şeftali Studio, <strong>1 Ekim 2020</strong> tarihinde temelleri atılmış bir oyun geliştirme topluluğudur. 
+                <strong>2022</strong> yılından bu yana aktif olarak oyunlarımızı oyuncularla buluşturuyoruz. 
+            </p>
+            <p>
+                Bizim felsefemiz sadelik üzerine kurulu: <strong>Basit ve eğlenceli oyunlar yaparız.</strong> 
+                Karmaşık mekaniklerle oyuncuyu yormak yerine, doğrudan eğlenceye odaklanmayı tercih ediyoruz. 
+                Projelerimizin kalbinde en çok sevdiğimiz ve uzmanlaştığımız <strong>Scratch</strong> oyun motoru yer alıyor.
+            </p>
+        </div>
+    </section>
+
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeGameModal()">&times;</span>
+            <img src="image_a486ba.png" alt="Top Oyunu Detay" class="modal-img">
+            <h2>Top Oyunu</h2>
+            <p class="modal-desc">
+                Şeftali Studio'nun eğlenceli dünyasına hoş geldiniz! Bu oyunda yeşil bir topu kontrol ederek engelleri aşmaya çalışıyorsunuz. 
+                Basit kontrolleri ve keyifli yapısıyla tam bir Şeftali Studio klasiği.
+            </p>
+            <a href="https://scratch.mit.edu/projects/1147626330/" target="_blank" class="play-btn">Oynamak İçin Tıklayın</a>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -49,6 +93,21 @@
             </p>
         </div>
     </footer>
+
+    <script>
+        function openGameModal() {
+            document.getElementById("gameModal").style.display = "block";
+        }
+        function closeGameModal() {
+            document.getElementById("gameModal").style.display = "none";
+        }
+        window.onclick = function(event) {
+            let modal = document.getElementById("gameModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 </html>
