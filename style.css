@@ -1,76 +1,75 @@
-/* Genel Ayarlar */
+/* Önceki body ayarlarını koruyabilirsin */
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #0f0f0f; /* Riot Games tarzı çok koyu gri/siyah */
-    color: #ffffff;
-    line-height: 1.6;
-}
-
-/* Navigasyon (Menü) Kısmı */
-header {
-    background-color: rgba(0, 0, 0, 0.9);
-    padding: 20px 10%;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffb38a; /* Şeftali tonu vurgu rengi */
-    letter-spacing: 2px;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-}
-
-nav ul li {
-    margin-left: 20px;
-}
-
-nav ul li a {
+    background-color: #000;
+    font-family: 'Segoe UI', sans-serif;
     color: white;
-    text-decoration: none;
-    font-size: 14px;
-    text-transform: uppercase;
-    transition: 0.3s;
+    overflow-x: hidden;
 }
 
-nav ul li a:hover {
-    color: #ffb38a;
+/* Arka Plan Videosu Ayarı */
+#bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1; /* İçeriğin arkasında kalması için */
 }
 
-/* Ana Bölüm (Hero Section) */
+/* Hero Section (Giriş) */
 #home {
     height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+.hero-content {
     text-align: center;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://via.placeholder.com/1920x1080'); /* Buraya sonra kendi oyun görselini koyacağız */
-    background-size: cover;
-    background-position: center;
+    z-index: 1;
+}
+
+/* Ana Logo Ayarı */
+.main-logo {
+    width: 250px; /* Logonun boyutunu buradan ayarlayabilirsin */
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px rgba(0,0,0,0.5)); /* Logoyu öne çıkarmak için hafif gölge */
 }
 
 h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    margin: 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 p {
     font-size: 1.2rem;
-    color: #cccccc;
+    color: #ffb38a; /* Şeftali tonu */
 }
+
+/* Header (Üst Menü) */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 1000;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header-logo { font-weight: bold; color: #ffb38a; }
+nav ul { display: flex; list-style: none; }
+nav ul li { margin: 0 15px; }
+nav ul li a { color: white; text-decoration: none; text-transform: uppercase; font-size: 0.9rem; }
