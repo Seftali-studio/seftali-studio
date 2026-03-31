@@ -1,21 +1,22 @@
-/* --- TEMEL AYARLAR VE FONTAR --- */
+/* --- TEMEL AYARLAR --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body, html {
-    width: 100%;
-    height: 100%;
+html {
+    scroll-behavior: smooth; /* MENÜ TIKLAMALARINDA YUMUŞAK KAYMA SAĞLAR */
+}
+
+body {
     background-color: #000;
     font-family: 'Rajdhani', sans-serif;
     color: white;
     overflow-x: hidden;
-    scroll-behavior: smooth;
 }
 
-/* --- NAVİGASYON (ÜST MENÜ) --- */
+/* --- NAVİGASYON --- */
 header {
     position: fixed;
     top: 0;
@@ -33,34 +34,29 @@ nav {
 
 .header-logo {
     font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
     color: #ffb38a;
     letter-spacing: 3px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
 }
 
-nav ul {
-    display: flex;
-    list-style: none;
-}
-
-nav ul li { margin: 0 20px; }
+nav ul { display: flex; list-style: none; }
+nav ul li { margin: 0 15px; }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 700;
     transition: 0.3s;
 }
 
 nav ul li a:hover { color: #ffb38a; }
 
-/* --- HERO SECTION (GİRİŞ ALANI) --- */
+/* --- GİRİŞ ALANI (HERO) --- */
 #home {
     height: 100vh;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,16 +74,12 @@ nav ul li a:hover { color: #ffb38a; }
     filter: brightness(0.5);
 }
 
-.hero-content {
-    text-align: center;
-    z-index: 10;
-}
+.hero-content { text-align: center; z-index: 10; }
 
 .main-logo {
-    width: 250px;
-    height: auto;
+    width: 240px;
     margin-bottom: 20px;
-    filter: drop-shadow(0 0 20px rgba(255,179,138,0.3));
+    filter: drop-shadow(0 0 15px rgba(255,179,138,0.3));
     animation: float 4s ease-in-out infinite;
 }
 
@@ -96,169 +88,97 @@ nav ul li a:hover { color: #ffb38a; }
     50% { transform: translateY(-10px); }
 }
 
-h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.2rem;
-    letter-spacing: 4px;
-    margin-bottom: 5px;
+h1 { font-family: 'Orbitron'; font-size: 2rem; letter-spacing: 4px; margin-bottom: 10px; }
+.hero-content p { color: #ffb38a; font-size: 1.2rem; }
+
+/* --- GENEL BÖLÜM AYARLARI --- */
+section {
+    padding: 100px 10%;
+    min-height: 50vh;
 }
 
-/* --- BÖLÜM BAŞLIKLARI --- */
 .section-title {
     text-align: center;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 40px;
+    font-family: 'Orbitron';
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+    color: #fff;
     letter-spacing: 5px;
     text-transform: uppercase;
 }
 
-/* --- HABERLER BÖLÜMÜ --- */
-#news {
-    padding: 80px 10%;
-    background-color: #050505;
-}
-
-.news-container { max-width: 800px; margin: 0 auto; }
-
+/* --- HABERLER --- */
+#news { background-color: #050505; }
 .news-item {
     background: #111;
     padding: 25px;
     border-left: 4px solid #ffb38a;
-    transition: 0.3s;
+    border-radius: 0 10px 10px 0;
 }
+.news-date { color: #ffb38a; font-weight: bold; font-size: 0.8rem; }
+.news-item h3 { margin: 10px 0; font-family: 'Orbitron'; font-size: 1.2rem; }
 
-.news-date { color: #ffb38a; font-weight: bold; font-size: 0.9rem; }
-
-.news-item h3 { margin: 10px 0; font-family: 'Orbitron'; }
-
-/* --- OYUNLAR BÖLÜMÜ --- */
-#games {
-    padding: 80px 10%;
-    background-color: #000;
-}
-
+/* --- OYUNLAR --- */
+#games { background-color: #000; }
 .game-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
-    justify-content: center;
 }
-
 .game-card {
-    background: #0f0f0f;
+    background: #0a0a0a;
     border: 1px solid #222;
     padding: 20px;
-    text-align: center;
     border-radius: 12px;
     cursor: pointer;
     transition: 0.4s ease;
-}
-
-.game-card:hover {
-    transform: scale(1.03);
-    border-color: #ffb38a;
-    box-shadow: 0 0 20px rgba(255,179,138,0.1);
-}
-
-.game-card-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.game-link-text {
-    display: inline-block;
-    margin-top: 15px;
-    color: #ffb38a;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-/* --- HAKKIMIZDA BÖLÜMÜ --- */
-#about {
-    padding: 80px 10%;
-    background-color: #050505;
     text-align: center;
 }
+.game-card:hover { transform: translateY(-10px); border-color: #ffb38a; box-shadow: 0 10px 20px rgba(255,179,138,0.1); }
+.game-card-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
+.game-link-text { display: block; margin-top: 15px; color: #ffb38a; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
 
-.about-container { max-width: 750px; margin: 0 auto; }
-
-.about-container p {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #ccc;
-    margin-bottom: 20px;
-}
-
+/* --- HAKKIMIZDA --- */
+#about { background-color: #050505; text-align: center; }
+.about-container { max-width: 800px; margin: 0 auto; }
+.about-container p { font-size: 1.1rem; line-height: 1.8; color: #ccc; margin-bottom: 20px; }
 .about-container strong { color: #ffb38a; }
 
-/* --- MODAL (AÇILIR MENÜ) --- */
+/* --- MODAL (AÇILIR PENCERE) --- */
 .modal {
     display: none;
     position: fixed;
     z-index: 2000;
     left: 0; top: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.92);
+    background-color: rgba(0,0,0,0.95);
     backdrop-filter: blur(8px);
 }
-
 .modal-content {
-    background-color: #111;
+    background: #111;
     margin: 5% auto;
     padding: 40px;
-    width: 90%;
     max-width: 600px;
     border-radius: 20px;
     text-align: center;
     border: 1px solid #333;
     position: relative;
-    box-shadow: 0 0 50px rgba(0,0,0,1);
 }
-
-.close-btn {
-    position: absolute; right: 25px; top: 15px;
-    color: #888; font-size: 35px; cursor: pointer;
-}
-
-.close-btn:hover { color: #fff; }
-
-.modal-img { width: 100%; border-radius: 12px; margin-bottom: 20px; }
-
-.modal-desc {
-    color: #aaa;
-    line-height: 1.6;
-    margin: 20px 0;
-}
-
+.close-btn { position: absolute; right: 20px; top: 10px; color: #fff; font-size: 35px; cursor: pointer; }
+.modal-img { width: 100%; border-radius: 10px; margin-bottom: 20px; }
 .play-btn {
     display: inline-block;
-    background-color: #ffb38a;
+    background: #ffb38a;
     color: #000;
     padding: 15px 40px;
     text-decoration: none;
-    font-weight: 800;
+    font-weight: 900;
     border-radius: 50px;
-    text-transform: uppercase;
+    margin-top: 20px;
     transition: 0.3s;
 }
-
-.play-btn:hover {
-    transform: scale(1.05);
-    background-color: #fff;
-}
+.play-btn:hover { transform: scale(1.05); background: #fff; }
 
 /* --- FOOTER --- */
-footer {
-    padding: 40px;
-    background: #000;
-    text-align: center;
-    border-top: 1px solid #111;
-}
-
-.footer-content p { color: #444; font-size: 0.8rem; letter-spacing: 1px; }
-
-.credits a { color: #ffb38a; text-decoration: none; opacity: 0.7; }
+footer { padding: 40px; text-align: center; border-top: 1px solid #111; background: #000; }
+footer p { color: #444; font-size: 0.8rem; letter-spacing: 1px; }
