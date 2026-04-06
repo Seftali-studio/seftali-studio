@@ -1,10 +1,16 @@
 {
   "haberler": [
     {
+      "id": 1775499118048,
+      "baslik": "deneme haberi",
+      "tarih": "06.04.2026",
+      "detay": "bu haber haberler bölümünü test etmek amacıyla admin tarafından açıldı"
+    },
+    {
       "id": 1,
-      "baslik": "Şeftali Studio Yönetim Paneli Hazır!",
+      "baslik": "Åeftali Studio YÃ¶netim Paneli HazÄ±r!",
       "tarih": "6 Nisan 2026",
-      "detay": "Artık haberlerimizi kod yazmadan, kendi özel panelimizden güncelleyebiliyoruz. İlk adım başarıyla tamamlandı!"
+      "detay": "ArtÄ±k haberlerimizi kod yazmadan, kendi Ã¶zel panelimizden gÃ¼ncelleyebiliyoruz. Ä°lk adÄ±m baÅarÄ±yla tamamlandÄ±!"
     }
   ],
   "oyunlar": []
