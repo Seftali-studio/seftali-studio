@@ -1,108 +1,73 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <title>Şeftali Studio | Admin</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .admin-box { max-width: 500px; margin: 80px auto; background: #0a0a0a; padding: 40px; border-radius: 20px; border: 1px solid #ffb38a; box-shadow: 0 0 20px rgba(255,179,138,0.1); }
-        h2 { font-family: 'Orbitron', sans-serif; color: #ffb38a; text-align: center; }
-        h3 { color: #888; font-size: 0.9rem; margin-top: 20px; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid #333; color: white; border-radius: 8px; font-family: sans-serif; }
-        .btn-update { background: #ffb38a; color: #000; font-weight: 900; border: none; padding: 15px; width: 100%; border-radius: 50px; cursor: pointer; margin-top: 15px; transition: 0.3s; }
-        .btn-update:hover { background: #fff; transform: scale(1.02); }
-        #status { margin-top: 20px; text-align: center; color: #888; font-weight: bold; }
-        .token-info { font-size: 0.7rem; color: #ff4444; margin-bottom: 5px; }
-    </style>
-</head>
-<body>
+async function submitToGithub() {
+    const token = document.getElementById('gh-token').value.trim(); // Boşlukları temizler
+    const title = document.getElementById('h-title').value;
+    const desc = document.getElementById('h-desc').value;
+    const status = document.getElementById('status');
 
-    <div class="admin-box">
-        <h2>STUDIO ADMIN</h2>
-        
-        <p class="token-info">* GitHub Token'ınızı (ghp_...) buraya yapıştırın:</p>
-        <input type="password" id="gh-token" placeholder="github_pat_...">
+    // --- BURAYI KENDİ BİLGİLERİNE GÖRE DOLDUR ---
+    // GitHub'da deponun en üstünde yazan ismi tam buraya yaz:
+    const repo = "seftali-stüdyosu/seftali-stüdyosu"; 
+    const path = "data.json"; 
+    // --------------------------------------------
 
-        <hr style="border: 0.5px solid #222; margin: 25px 0;">
+    if(!token || !title || !desc) { 
+        alert("Lütfen anahtarı ve haber alanlarını doldurun!"); 
+        return; 
+    }
 
-        <h3>Yeni Haber Yayınla</h3>
-        <input type="text" id="h-title" placeholder="Haber Başlığı">
-        <textarea id="h-desc" rows="4" placeholder="Haber Detaylarını buraya yazın..."></textarea>
-        
-        <button class="btn-update" onclick="submitToGithub()">SİTEYİ GÜNCELLE</button>
-        <div id="status">Sistem hazır.</div>
-    </div>
+    status.innerText = "Bağlantı kuruluyor...";
+    status.style.color = "#888";
 
-    <script>
-        async function submitToGithub() {
-            const token = document.getElementById('gh-token').value;
-            const title = document.getElementById('h-title').value;
-            const desc = document.getElementById('h-desc').value;
-            const status = document.getElementById('status');
+    try {
+        // 1. Dosyayı kontrol et
+        const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+            headers: { "Authorization": `token ${token}` }
+        });
 
-            // --- REPO BİLGİSİ ---
-            const repo = "Seftali-stüdyosu/seftali-stüdyosu"; 
-            const path = "data.json";
-
-            if(!token || !title || !desc) { 
-                alert("Lütfen anahtarı, başlığı ve içeriği boş bırakmayın!"); 
-                return; 
-            }
-
-            status.innerText = "GitHub'a bağlanılıyor...";
-            status.style.color = "#888";
-
-            try {
-                // 1. Mevcut data.json dosyasını çek (SHA değeri için gerekli)
-                const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
-                    headers: { "Authorization": `token ${token}` }
-                });
-                
-                if (!res.ok) throw new Error("Dosya çekilemedi. Token veya Repo adı hatalı olabilir.");
-                
-                const data = await res.json();
-                const content = JSON.parse(atob(data.content));
-
-                // 2. Yeni haberi listenin en başına ekle
-                const newEntry = {
-                    id: Date.now(),
-                    baslik: title,
-                    tarih: new Date().toLocaleDateString('tr-TR'),
-                    detay: desc
-                };
-                
-                content.haberler.unshift(newEntry);
-
-                // 3. Güncellenmiş veriyi GitHub'a geri gönder
-                const update = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
-                    method: "PUT",
-                    headers: { 
-                        "Authorization": `token ${token}`,
-                        "Content-Type": "application/json" 
-                    },
-                    body: JSON.stringify({
-                        message: "Admin Panel: Yeni haber eklendi",
-                        content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
-                        sha: data.sha
-                    })
-                });
-
-                if(update.ok) {
-                    status.style.color = "#00ff00";
-                    status.innerText = "BAŞARILI! Haber eklendi. Site 1-2 dakika içinde güncellenecek.";
-                    // Kutuları temizle
-                    document.getElementById('h-title').value = "";
-                    document.getElementById('h-desc').value = "";
-                } else {
-                    throw new Error("Güncelleme başarısız.");
-                }
-
-            } catch (e) {
-                status.style.color = "#ff4444";
-                status.innerText = "HATA: " + e.message;
-                console.error(e);
-            }
+        if (res.status === 404) {
+            throw new Error("data.json dosyası depoda bulunamadı! Adını kontrol et.");
+        } else if (res.status === 401) {
+            throw new Error("Token (Anahtar) hatalı veya süresi dolmuş.");
+        } else if (!res.ok) {
+            throw new Error("GitHub bağlantı hatası: " + res.status);
         }
-    </script>
-</body>
-</html>
+
+        const data = await res.json();
+        const content = JSON.parse(atob(data.content));
+
+        // 2. Yeni veriyi ekle
+        content.haberler.unshift({
+            id: Date.now(),
+            baslik: title,
+            tarih: new Date().toLocaleDateString('tr-TR'),
+            detay: desc
+        });
+
+        // 3. GitHub'a geri gönder
+        const update = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+            method: "PUT",
+            headers: { 
+                "Authorization": `token ${token}`,
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({
+                message: "Panel: Haber eklendi",
+                content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
+                sha: data.sha
+            })
+        });
+
+        if(update.ok) {
+            status.style.color = "#00ff00";
+            status.innerText = "BAŞARILI! Haber eklendi.";
+            document.getElementById('h-title').value = "";
+            document.getElementById('h-desc').value = "";
+        } else {
+            throw new Error("Güncelleme sırasında hata oluştu.");
+        }
+
+    } catch (e) {
+        status.style.color = "#ff4444";
+        status.innerText = "HATA: " + e.message;
+    }
+}
