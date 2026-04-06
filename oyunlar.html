@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyunlarımız | Şeftali Studio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="header-logo">ŞEFTALİ STUDIO</div>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="haberler.html">Haberler</a></li>
+                <li><a href="oyunlar.html">Oyunlarımız</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="games-page" style="margin-top: 100px;">
+        <h2 class="section-title">Oyunlarımız</h2>
+        <div class="game-grid">
+            <div class="game-card" onclick="openGameModal()">
+                <img src="image_a486ba.png" alt="Top Oyunu" class="game-card-img">
+                <h3>Top Oyunu</h3>
+                <p>Engelleri aş ve bitişe ulaş!</p>
+                <span class="game-link-text">Detayları Gör</span>
+            </div>
+            </div>
+    </section>
+
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeGameModal()">&times;</span>
+            <img src="image_a486ba.png" alt="Top Oyunu Detay" class="modal-img">
+            <h2>Top Oyunu</h2>
+            <p class="modal-desc">
+                Şeftali Studio'nun eğlenceli dünyasına hoş geldiniz! Yeşil topu kontrol ederek zorlu engelleri aşın.
+            </p>
+            <a href="https://scratch.mit.edu/projects/1147626330/" target="_blank" class="play-btn">Oynamak İçin Tıklayın</a>
+        </div>
+    </div>
+
+    <section id="events">
+        <h2 class="section-title">Etkinlikler</h2>
+        <div class="events-container">
+            <div class="no-event">
+                <i class="fa-solid fa-calendar-day"></i>
+                <p>Şu an aktif bir etkinlik bulunmamaktadır. Yakında buradayız!</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.facebook.com/Seftalistudio" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/seftali_studio/" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>ŞEFTALİ STUDIO | 2026</p>
+            <p class="credits">Inspired by Scratch (MIT Media Lab).</p>
+        </div>
+    </footer>
+
+    <script>
+        function openGameModal() { document.getElementById("gameModal").style.display = "block"; }
+        function closeGameModal() { document.getElementById("gameModal").style.display = "none"; }
+    </script>
+</body>
+</html>
