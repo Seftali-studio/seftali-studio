@@ -35,11 +35,11 @@
     </section>
 
     <section id="events">
-        <h2 class="section-title">Etkinlikler</h2>
-        <div class="events-container">
+        <h2 class="section-title">Etkinlikler & Haberler</h2>
+        <div class="events-container" id="haberler-listesi">
             <div class="no-event">
-                <i class="fa-solid fa-calendar-day"></i>
-                <p>Şu an aktif bir etkinlik bulunmamaktadır. Yakında buradayız!</p>
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Haberler yükleniyor...</p>
             </div>
         </div>
     </section>
@@ -59,6 +59,52 @@
             </p>
         </div>
     </footer>
+
+    <script>
+        async function haberleriYukle() {
+            try {
+                // data.json dosyasını çekiyoruz (Cache engellemek için v=... ekledik)
+                const response = await fetch('data.json?v=' + Date.now());
+                const data = await response.json();
+                const liste = document.getElementById('haberler-listesi');
+                
+                liste.innerHTML = ""; // Yükleniyor yazısını sil
+
+                if (data.haberler.length === 0) {
+                    liste.innerHTML = `
+                        <div class="no-event">
+                            <i class="fa-solid fa-calendar-day"></i>
+                            <p>Şu an aktif bir etkinlik bulunmamaktadır. Yakında buradayız!</p>
+                        </div>`;
+                    return;
+                }
+
+                // Her haberi senin stiline uygun şekilde ekrana basıyoruz
+                data.haberler.forEach(haber => {
+                    liste.innerHTML += `
+                        <div class="event-card" style="
+                            background: rgba(17, 17, 17, 0.8);
+                            border: 1px solid #ffb38a;
+                            padding: 20px;
+                            margin: 15px;
+                            border-radius: 15px;
+                            text-align: left;
+                            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+                        ">
+                            <h3 style="color: #ffb38a; font-family: 'Orbitron'; margin-top: 0;">${haber.baslik}</h3>
+                            <small style="color: #888;">${haber.tarih}</small>
+                            <p style="color: #ddd; margin-top: 10px; font-family: 'Rajdhani'; font-size: 1.1rem;">${haber.detay}</p>
+                        </div>`;
+                });
+            } catch (error) {
+                console.error("Haber yükleme hatası:", error);
+                document.getElementById('haberler-listesi').innerHTML = "<p>Bağlantı hatası!</p>";
+            }
+        }
+
+        // Sayfa açıldığında çalıştır
+        window.onload = haberleriYukle;
+    </script>
 
 </body>
 </html>
