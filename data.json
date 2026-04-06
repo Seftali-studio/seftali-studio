@@ -1,16 +1,22 @@
 {
   "haberler": [
     {
+      "id": 1775499519886,
+      "baslik": "deneme haberi",
+      "tarih": "06.04.2026",
+      "detay": "bu haber haberler bölümünü test etmek için admin tarafından yazılmıştır"
+    },
+    {
       "id": 1775499118048,
       "baslik": "deneme haberi",
       "tarih": "06.04.2026",
-      "detay": "bu haber haberler bölümünü test etmek amacıyla admin tarafından açıldı"
+      "detay": "bu haber haberler bÃ¶lÃ¼mÃ¼nÃ¼ test etmek amacÄ±yla admin tarafÄ±ndan aÃ§Ä±ldÄ±"
     },
     {
       "id": 1,
-      "baslik": "Åeftali Studio YÃ¶netim Paneli HazÄ±r!",
+      "baslik": "ÃÂeftali Studio YÃÂ¶netim Paneli HazÃÂ±r!",
       "tarih": "6 Nisan 2026",
-      "detay": "ArtÄ±k haberlerimizi kod yazmadan, kendi Ã¶zel panelimizden gÃ¼ncelleyebiliyoruz. Ä°lk adÄ±m baÅarÄ±yla tamamlandÄ±!"
+      "detay": "ArtÃÂ±k haberlerimizi kod yazmadan, kendi ÃÂ¶zel panelimizden gÃÂ¼ncelleyebiliyoruz. ÃÂ°lk adÃÂ±m baÃÂarÃÂ±yla tamamlandÃÂ±!"
     }
   ],
   "oyunlar": []
