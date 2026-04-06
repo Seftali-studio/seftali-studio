@@ -1,41 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şeftali Studio | Yönetim Paneli</title>
+    <style>
+        :root { --accent: #ffb38a; --bg: #0a0a0a; --card: #111; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; }
+        .admin-card { background: var(--card); border: 1px solid var(--accent); padding: 30px; border-radius: 20px; width: 100%; max-width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h2 { color: var(--accent); text-align: center; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
+        p.subtitle { text-align: center; color: #666; font-size: 0.8rem; margin-bottom: 25px; }
+        label { display: block; margin-top: 15px; color: var(--accent); font-size: 0.9rem; font-weight: bold; }
+        input, textarea { width: 100%; padding: 12px; margin-top: 5px; background: #050505; border: 1px solid #333; color: white; border-radius: 10px; box-sizing: border-box; }
+        input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+        .btn { background: var(--accent); color: black; border: none; padding: 15px; width: 100%; border-radius: 50px; font-weight: 900; cursor: pointer; margin-top: 25px; transition: 0.3s; }
+        .btn:hover { background: white; transform: translateY(-2px); }
+        #status { margin-top: 20px; text-align: center; font-size: 0.9rem; font-weight: bold; padding: 10px; border-radius: 10px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="admin-card">
+    <h2>STUDIO ADMIN</h2>
+    <p class="subtitle">Şeftali Studio İçerik Yönetimi</p>
+
+    <label>GitHub Token</label>
+    <input type="password" id="gh-token" placeholder="github_pat_...">
+
+    <hr style="border: 0.1px solid #222; margin: 25px 0;">
+
+    <label>Haber Başlığı</label>
+    <input type="text" id="h-title" placeholder="Örn: Yeni Güncelleme Yayında!">
+
+    <label>Haber Detayı</label>
+    <textarea id="h-desc" rows="5" placeholder="Haber içeriğini buraya yazın..."></textarea>
+
+    <button class="btn" onclick="submitToGithub()">SİTEYİ GÜNCELLE</button>
+    <div id="status"></div>
+</div>
+
+<script>
 async function submitToGithub() {
-    const token = document.getElementById('gh-token').value.trim(); // Boşlukları temizler
+    const token = document.getElementById('gh-token').value.trim();
     const title = document.getElementById('h-title').value;
     const desc = document.getElementById('h-desc').value;
-    const status = document.getElementById('status');
+    const statusDiv = document.getElementById('status');
 
-    // --- BURAYI KENDİ BİLGİLERİNE GÖRE DOLDUR ---
-    // GitHub'da deponun en üstünde yazan ismi tam buraya yaz:
-    const repo = "seftali-stüdyosu/seftali-stüdyosu"; 
-    const path = "data.json"; 
-    // --------------------------------------------
+    // --- REPO AYARLARI ---
+    const repo = "Seftali-studio/seftali-studio"; 
+    const path = "data.json";
+    // ---------------------
 
-    if(!token || !title || !desc) { 
-        alert("Lütfen anahtarı ve haber alanlarını doldurun!"); 
-        return; 
+    if(!token || !title || !desc) {
+        showStatus("Lütfen tüm alanları doldurun!", "#ff4444");
+        return;
     }
 
-    status.innerText = "Bağlantı kuruluyor...";
-    status.style.color = "#888";
+    showStatus("Bağlantı kuruluyor...", "#888");
 
     try {
-        // 1. Dosyayı kontrol et
+        // 1. Mevcut data.json dosyasını çek
         const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
             headers: { "Authorization": `token ${token}` }
         });
 
-        if (res.status === 404) {
-            throw new Error("data.json dosyası depoda bulunamadı! Adını kontrol et.");
-        } else if (res.status === 401) {
-            throw new Error("Token (Anahtar) hatalı veya süresi dolmuş.");
-        } else if (!res.ok) {
-            throw new Error("GitHub bağlantı hatası: " + res.status);
-        }
+        if (res.status === 404) throw new Error("data.json bulunamadı!");
+        if (res.status === 401) throw new Error("Token geçersiz!");
 
-        const data = await res.json();
-        const content = JSON.parse(atob(data.content));
+        const fileData = await res.json();
+        const content = JSON.parse(atob(fileData.content));
 
-        // 2. Yeni veriyi ekle
+        // 2. Yeni haberi listenin başına ekle
         content.haberler.unshift({
             id: Date.now(),
             baslik: title,
@@ -43,7 +78,7 @@ async function submitToGithub() {
             detay: desc
         });
 
-        // 3. GitHub'a geri gönder
+        // 3. Güncellenmiş dosyayı geri yükle
         const update = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
             method: "PUT",
             headers: { 
@@ -51,23 +86,33 @@ async function submitToGithub() {
                 "Content-Type": "application/json" 
             },
             body: JSON.stringify({
-                message: "Panel: Haber eklendi",
+                message: "Admin: Haber eklendi",
                 content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
-                sha: data.sha
+                sha: fileData.sha
             })
         });
 
         if(update.ok) {
-            status.style.color = "#00ff00";
-            status.innerText = "BAŞARILI! Haber eklendi.";
+            showStatus("BAŞARILI! Haber yayınlandı.", "#00ff00");
             document.getElementById('h-title').value = "";
             document.getElementById('h-desc').value = "";
         } else {
-            throw new Error("Güncelleme sırasında hata oluştu.");
+            throw new Error("Yükleme başarısız oldu.");
         }
 
     } catch (e) {
-        status.style.color = "#ff4444";
-        status.innerText = "HATA: " + e.message;
+        showStatus("HATA: " + e.message, "#ff4444");
     }
 }
+
+function showStatus(msg, color) {
+    const statusDiv = document.getElementById('status');
+    statusDiv.style.display = "block";
+    statusDiv.innerText = msg;
+    statusDiv.style.color = color;
+    statusDiv.style.border = `1px solid ${color}`;
+}
+</script>
+
+</body>
+</html>
